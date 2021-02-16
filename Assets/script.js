@@ -60,3 +60,19 @@ var questions = [
             correctAnswer: "b"
     },
 ];
+
+function checkAnswer () {
+
+};
+function nextQuestion () {
+
+};
+function updateTimer () {
+
+};
+function updateScore () {
+
+};
+function updateScore () {
+
+};

@@ -62,11 +62,11 @@ var questions = [
 ];
 
 
-
-
 function checkAnswer (event) {
-    var element = event.target.id;
-    if (element == questions[questionCount].correctAnswer) {
+    // Grabbing the id of the button the user clicked and storing it in the var chosenButton.
+
+    var chosenButton = event.target.id;
+    if (chosenButton == questions[questionCount].correctAnswer) {
         questionCount++;
         quizContainer.innerHTML = questions[questionCount].question; 
         resultsContainer.textContent = "";
@@ -89,7 +89,6 @@ var buttonC = document.querySelector("#c");
 var buttonD = document.querySelector("#d");
 var quizContainer = document.querySelector('#quiz');
 var resultsContainer = document.querySelector('#results');
-var buttonsContainer = document.querySelector('.buttons');
 
 // Default on first question.
 quizContainer.innerHTML = questions[0].question;
@@ -102,5 +101,3 @@ buttonA.addEventListener("click", checkAnswer);
 buttonB.addEventListener("click", checkAnswer);
 buttonC.addEventListener("click", checkAnswer);
 buttonD.addEventListener("click", checkAnswer);
-
-

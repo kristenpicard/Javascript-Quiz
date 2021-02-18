@@ -89,8 +89,6 @@ function beginFunction() {
     setTime();
 };
 
-
-
 function checkAnswer (event) {
     // Grabbing the id of the button the user clicked and storing it in the var chosenButton.
 

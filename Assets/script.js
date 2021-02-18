@@ -76,9 +76,11 @@ function checkAnswer (event) {
         buttonD.textContent = questions[questionCount].answers.d;
     }
     else {
-        resultsContainer.textContent = "Wrong!";
+        resultsContainer.textContent = "Incorrect!";
     }
 };
+
+
 
 var questionCount = 0;
 

@@ -72,7 +72,24 @@ function beginFunction() {
     buttonC.style.visibility = 'visible';
     buttonD.style.visibility = 'visible';
     startButton.style.visibility = 'hidden';
+    
+    var secondsLeft = 60;
+
+    function setTime() {
+    // Sets interval in variable
+    var timerInterval = setInterval(function() {
+        secondsLeft--;
+        timeEl.textContent = secondsLeft + " seconds left";
+        if(secondsLeft === 0) {
+        // Stops execution of action at set interval
+        clearInterval(timerInterval);
+        }
+     }, 1000);
+    }
+    setTime();
 };
+
+
 
 function checkAnswer (event) {
     // Grabbing the id of the button the user clicked and storing it in the var chosenButton.
@@ -98,6 +115,7 @@ function checkAnswer (event) {
 
 var questionCount = 0;
 
+var timeEl = document.querySelector("#time");
 var buttonA = document.querySelector("#a");
 var buttonB = document.querySelector("#b");
 var buttonC = document.querySelector("#c");

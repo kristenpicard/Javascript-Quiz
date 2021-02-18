@@ -61,6 +61,18 @@ var questions = [
     },
 ];
 
+function beginFunction() {
+    quizContainer.innerHTML = questions[0].question;
+    buttonA.textContent = questions[0].answers.a;
+    buttonB.textContent = questions[0].answers.b;
+    buttonC.textContent = questions[0].answers.c;
+    buttonD.textContent = questions[0].answers.d;
+    buttonA.style.visibility = 'visible';
+    buttonB.style.visibility = 'visible';
+    buttonC.style.visibility = 'visible';
+    buttonD.style.visibility = 'visible';
+    startButton.style.visibility = 'hidden';
+};
 
 function checkAnswer (event) {
     // Grabbing the id of the button the user clicked and storing it in the var chosenButton.
@@ -74,32 +86,40 @@ function checkAnswer (event) {
         buttonB.textContent = questions[questionCount].answers.b;
         buttonC.textContent = questions[questionCount].answers.c;
         buttonD.textContent = questions[questionCount].answers.d;
+        buttonA.style.visibility = 'visible';
+        buttonB.style.visibility = 'visible';
+        buttonC.style.visibility = 'visible';
+        buttonD.style.visibility = 'visible';
     }
     else {
         resultsContainer.textContent = "Incorrect!";
     }
 };
 
-
-
 var questionCount = 0;
-
 
 var buttonA = document.querySelector("#a");
 var buttonB = document.querySelector("#b");
 var buttonC = document.querySelector("#c");
 var buttonD = document.querySelector("#d");
+var startButton = document.querySelector("#start");
+
 var quizContainer = document.querySelector('#quiz');
 var resultsContainer = document.querySelector('#results');
 
 // Default on first question.
-quizContainer.innerHTML = questions[0].question;
-buttonA.textContent = questions[0].answers.a;
-buttonB.textContent = questions[0].answers.b;
-buttonC.textContent = questions[0].answers.c;
-buttonD.textContent = questions[0].answers.d;
+quizContainer.innerHTML = "Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your score/time by ten seconds!";
+startButton.textContent = "Begin";
 
+buttonA.style.visibility = 'hidden';
+buttonB.style.visibility = 'hidden';
+buttonC.style.visibility = 'hidden';
+buttonD.style.visibility = 'hidden';
+
+startButton.addEventListener("click", beginFunction);
 buttonA.addEventListener("click", checkAnswer);
 buttonB.addEventListener("click", checkAnswer);
 buttonC.addEventListener("click", checkAnswer);
 buttonD.addEventListener("click", checkAnswer);
+
+

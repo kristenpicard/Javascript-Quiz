@@ -1,20 +1,22 @@
 
 body {
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    margin: auto;
     width: 50%;
     padding: 15px;
+    margin: auto;
 }
 
 body h1 {
     color: blueviolet;
     text-align: center;
     font-size: 50px;
+    
 }
 
 body div {
     font-size: x-large;
     padding-bottom: 1.5%;
+    
 }
 
 body div button {
@@ -25,8 +27,3 @@ body div button {
     font-size: x-large;
 }
 
-div .timer {
-    position:absolute;
-    top:0;
-    right:0;
-}

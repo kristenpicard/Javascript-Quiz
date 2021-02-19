@@ -72,26 +72,22 @@ function beginFunction() {
     buttonC.style.visibility = 'visible';
     buttonD.style.visibility = 'visible';
     startButton.style.visibility = 'hidden';
-    
-    var secondsLeft = 60;
-
-    function setTime() {
-    // Sets interval in variable
-    var timerInterval = setInterval(function() {
-        secondsLeft--;
-        timeEl.textContent = secondsLeft + " seconds left";
-        if(secondsLeft === 0) {
-        // Stops execution of action at set interval
-        clearInterval(timerInterval);
-        }
-     }, 1000);
-    }
-    setTime();
 };
+
+var secondsLeft = 60;
+
+function setTime() {
+var timerInterval = setInterval(function() {
+    secondsLeft--;
+    timeEl.textContent = secondsLeft + " seconds left";
+    if(secondsLeft === 0) {
+    clearInterval(timerInterval);
+    }
+ }, 1000); 
+}
 
 function checkAnswer (event) {
     // Grabbing the id of the button the user clicked and storing it in the var chosenButton.
-
     var chosenButton = event.target.id;
     if (chosenButton == questions[questionCount].correctAnswer) {
         questionCount++;
@@ -107,9 +103,21 @@ function checkAnswer (event) {
         buttonD.style.visibility = 'visible';
     }
     else {
-        resultsContainer.textContent = "Incorrect!";
+        resultsContainer.textContent = "Incorrect!";    
+        // This code below did not work to take time away if incorrect.
+        timeEl.addEventListener("click", function() {
+            secondsLeft -= 10;
+            document.getElementById("#time").innerHTML = secondsLeft + " seconds left";
+        });
     }
 };
+
+// My attempt at how to change screen to All done once looped through all questions or time is up.  Don't know where to call it?
+function allDone () {
+    if (questionCount > questions.length || secondsLeft == 0) {
+        finishedContainer.style.visibility = 'visible';
+    }
+}
 
 var questionCount = 0;
 
@@ -122,6 +130,7 @@ var startButton = document.querySelector("#start");
 
 var quizContainer = document.querySelector('#quiz');
 var resultsContainer = document.querySelector('#results');
+var finishedContainer = document.querySelector('#finished');
 
 // Default on first question.
 quizContainer.innerHTML = "Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your score/time by ten seconds!";
@@ -131,8 +140,13 @@ buttonA.style.visibility = 'hidden';
 buttonB.style.visibility = 'hidden';
 buttonC.style.visibility = 'hidden';
 buttonD.style.visibility = 'hidden';
+finishedContainer.style.visibility = 'hidden';
 
-startButton.addEventListener("click", beginFunction);
+// This made an event listener that calls 2 functions on this click.
+startButton.addEventListener("click", () => {
+    beginFunction();
+    setTime()
+});
 buttonA.addEventListener("click", checkAnswer);
 buttonB.addEventListener("click", checkAnswer);
 buttonC.addEventListener("click", checkAnswer);

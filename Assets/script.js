@@ -150,15 +150,27 @@ function isClockZero() {
 }
 
 function showHighScores() {
-    
+    finishedContainer.style.visibility = 'hidden';
+    highScoresTable.style.visibility = 'visible';
+    for (var i = 0; i < window.localStorage.length; i++){
+        console.log('test!!!!');
+        var row = highScoresTable.insertRow(i);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        console.log(window.localStorage.key(i));
+
+        cell1.innerHTML = window.localStorage.key(i);
+        cell2.innerHTML = window.localStorage.getItem(localStorage.key(i));
+    } 
 }
 
-function submitScore() {
-    var initials = form.nodeValue;
-    window.localStorage.setItem(initials, secondsLeft);
+function submitScore(event) {
+    event.preventDefault()
+    var inits = initials.value;
+    console.log(inits);
+    window.localStorage.setItem(inits, JSON.stringify(secondsLeft));
     showHighScores();
 }
-
 
 
 var questionCount = 0;
@@ -171,11 +183,12 @@ var buttonD = document.querySelector("#d");
 var startButton = document.querySelector("#start");
 var score = document.querySelector('#score');
 var form = document.querySelector('#form');
-var submitButton = document.querySelector('#submit');
+var initials = document.querySelector('#initials');
 var quizDiv = document.querySelector('#quiz');
 var resultsContainer = document.querySelector('#results');
 var finishedContainer = document.querySelector('#finished');
 var quizContainer = document.querySelector('#quiz-container')
+var highScoresTable = document.querySelector('#high-scores');
 
 // Default on first question.
 quizDiv.innerHTML = "Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your score/time by ten seconds!";
@@ -185,6 +198,7 @@ buttonA.style.visibility = 'hidden';
 buttonB.style.visibility = 'hidden';
 buttonC.style.visibility = 'hidden';
 buttonD.style.visibility = 'hidden';
+highScoresTable.style.visibility = 'hidden';
 
 // Kristen you commented this to work on the form
 finishedContainer.style.visibility = 'hidden';
@@ -196,7 +210,8 @@ startButton.addEventListener("click", () => {
     startClock();
 });
 
-submitButton.addEventListener("click", submitScore)
+
+form.addEventListener("submit",submitScore);
 buttonA.addEventListener("click", checkAnswer);
 buttonB.addEventListener("click", checkAnswer);
 buttonC.addEventListener("click", checkAnswer);

@@ -62,7 +62,7 @@ var questions = [
 ];
 
 function beginFunction() {
-    quizContainer.innerHTML = questions[0].question;
+    quizDiv.innerHTML = questions[0].question;
     buttonA.textContent = questions[0].answers.a;
     buttonB.textContent = questions[0].answers.b;
     buttonC.textContent = questions[0].answers.c;
@@ -76,48 +76,85 @@ function beginFunction() {
 
 var secondsLeft = 60;
 
-function setTime() {
-var timerInterval = setInterval(function() {
-    secondsLeft--;
-    timeEl.textContent = secondsLeft + " seconds left";
-    if(secondsLeft === 0) {
-    clearInterval(timerInterval);
+function startClock() {
+    setInterval(updateClock,1000);
+}
+
+function updateClock() {
+    lock = true;
+    if (secondsLeft <= 0) {
+        if(lock == true){
+            lock = false;
+            timeEl.textContent = "0 seconds left";
+        }
+    } else {
+        secondsLeft--;
+        timeEl.textContent = secondsLeft + " seconds left";
+        isClockZero();
     }
- }, 1000); 
 }
 
 function checkAnswer (event) {
     // Grabbing the id of the button the user clicked and storing it in the var chosenButton.
     var chosenButton = event.target.id;
     if (chosenButton == questions[questionCount].correctAnswer) {
-        questionCount++;
-        quizContainer.innerHTML = questions[questionCount].question; 
-        resultsContainer.textContent = "";
-        buttonA.textContent = questions[questionCount].answers.a;
-        buttonB.textContent = questions[questionCount].answers.b;
-        buttonC.textContent = questions[questionCount].answers.c;
-        buttonD.textContent = questions[questionCount].answers.d;
-        buttonA.style.visibility = 'visible';
-        buttonB.style.visibility = 'visible';
-        buttonC.style.visibility = 'visible';
-        buttonD.style.visibility = 'visible';
+        if(!isLastQuestion()) {
+            console.log("hello");
+            questionCount++;
+            quizDiv.innerHTML = questions[questionCount].question; 
+            resultsContainer.textContent = "";
+            buttonA.textContent = questions[questionCount].answers.a;
+            buttonB.textContent = questions[questionCount].answers.b;
+            buttonC.textContent = questions[questionCount].answers.c;
+            buttonD.textContent = questions[questionCount].answers.d;
+            buttonA.style.visibility = 'visible';
+            buttonB.style.visibility = 'visible';
+            buttonC.style.visibility = 'visible';
+            buttonD.style.visibility = 'visible';
+        }
+        else {
+            goToLastPage();
+        }
     }
     else {
         resultsContainer.textContent = "Incorrect!";    
-        // This code below did not work to take time away if incorrect.
-        timeEl.addEventListener("click", function() {
-            secondsLeft -= 10;
-            document.getElementById("#time").innerHTML = secondsLeft + " seconds left";
-        });
+        secondsLeft -= 10;
+        timeEl.textContent = secondsLeft + " seconds left";
     }
 };
 
-// My attempt at how to change screen to All done once looped through all questions or time is up.  Don't know where to call it?
-function allDone () {
-    if (questionCount > questions.length || secondsLeft == 0) {
-        finishedContainer.style.visibility = 'visible';
+function goToLastPage() {
+    finishedContainer.style.visibility = 'visible';
+    quizContainer.style.visibility = 'hidden';
+    buttonA.style.visibility = 'hidden';
+    buttonB.style.visibility = 'hidden';
+    buttonC.style.visibility = 'hidden';
+    buttonD.style.visibility = 'hidden';
+    resultsContainer.style.visibility = 'hidden';
+    score.textContent = "Your final score is " + secondsLeft;
+}
+
+function isLastQuestion() {
+    if (questionCount == questions.length-1) {
+        return true; 
+    }
+    else {
+        return false;
     }
 }
+
+function isClockZero() {
+    if (secondsLeft <= 0) {
+        goToLastPage(); 
+    }
+}
+
+// Thinking I need this in order to display the seconds left into score on the all done page
+function getScore() {
+
+}
+
+
 
 var questionCount = 0;
 
@@ -127,26 +164,34 @@ var buttonB = document.querySelector("#b");
 var buttonC = document.querySelector("#c");
 var buttonD = document.querySelector("#d");
 var startButton = document.querySelector("#start");
-
-var quizContainer = document.querySelector('#quiz');
+var score = document.querySelector('#score');
+var form = document.querySelector('#form');
+var submitButton = document.querySelector('#submit');
+var quizDiv = document.querySelector('#quiz');
 var resultsContainer = document.querySelector('#results');
 var finishedContainer = document.querySelector('#finished');
+var quizContainer = document.querySelector('#quiz-container')
 
 // Default on first question.
-quizContainer.innerHTML = "Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your score/time by ten seconds!";
+quizDiv.innerHTML = "Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your score/time by ten seconds!";
 startButton.textContent = "Begin";
 
 buttonA.style.visibility = 'hidden';
 buttonB.style.visibility = 'hidden';
 buttonC.style.visibility = 'hidden';
 buttonD.style.visibility = 'hidden';
+
+// Kristen you commented this to work on the form
 finishedContainer.style.visibility = 'hidden';
+
 
 // This made an event listener that calls 2 functions on this click.
 startButton.addEventListener("click", () => {
     beginFunction();
-    setTime()
+    startClock();
 });
+
+
 buttonA.addEventListener("click", checkAnswer);
 buttonB.addEventListener("click", checkAnswer);
 buttonC.addEventListener("click", checkAnswer);

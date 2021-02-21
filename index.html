@@ -11,32 +11,39 @@
   <body>
     <div>Score: <div id="time"></div></div>
      
-      <header>
-        <h1>Coding Quiz Challenge</h1>
-      </header>
+    <header>
+      <h1>Coding Quiz Challenge</h1>
+    </header>
       
+    <div id="quiz-container">
       <div id="quiz"></div>
       
       <p id="questions"></p>
 
-            <div class="buttons">
-                <button id="start"></button>
-                <br>
-                <button id="a"></button>
-                <br>
-                <button id="b"></button>
-                <br>
-                <button id="c"></button>
-                <br>
-                <button id="d"></button>
-            </div>
+        <div class="buttons">
+            <button id="start"></button>
+            <br>
+            <button id="a"></button>
+            <br>
+            <button id="b"></button>
+            <br>
+            <button id="c"></button>
+            <br>
+            <button id="d"></button>
+        </div>
+      </div>
 
       <div id="results"></div>
       <div id="finished">
         <h2>All done!</h2>
-        <p>Your final score is </p>
-        <!-- Form Here -->
-
+        <div id="score"></div>
+        <form id="form">
+          <label for="initials">Enter your initials here:</label><br>
+          <input type="text" id="initials" name="initials"><br>
+        </form>
+        <div class="buttons">
+          <button id="submit">Submit</button>
+        </div>
       </div>
 
     <script src="Assets/script.js"></script>

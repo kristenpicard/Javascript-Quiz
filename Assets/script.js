@@ -62,16 +62,19 @@ var questions = [
 ];
 
 function beginFunction() {
+    questionCount = 0;
+    secondsLeft = 60;
+    quizContainer.style.display = 'inline';
     quizDiv.innerHTML = questions[0].question;
     buttonA.textContent = questions[0].answers.a;
     buttonB.textContent = questions[0].answers.b;
     buttonC.textContent = questions[0].answers.c;
     buttonD.textContent = questions[0].answers.d;
-    buttonA.style.visibility = 'visible';
-    buttonB.style.visibility = 'visible';
-    buttonC.style.visibility = 'visible';
-    buttonD.style.visibility = 'visible';
-    startButton.style.visibility = 'hidden';
+    buttonA.style.display = 'inline';
+    buttonB.style.display = 'inline';
+    buttonC.style.display = 'inline';
+    buttonD.style.display = 'inline';
+    startButton.style.display = 'none';
 };
 
 var secondsLeft = 60;
@@ -99,7 +102,6 @@ function checkAnswer (event) {
     var chosenButton = event.target.id;
     if (chosenButton == questions[questionCount].correctAnswer) {
         if(!isLastQuestion()) {
-            console.log("hello");
             questionCount++;
             quizDiv.innerHTML = questions[questionCount].question; 
             resultsContainer.textContent = "";
@@ -107,10 +109,10 @@ function checkAnswer (event) {
             buttonB.textContent = questions[questionCount].answers.b;
             buttonC.textContent = questions[questionCount].answers.c;
             buttonD.textContent = questions[questionCount].answers.d;
-            buttonA.style.visibility = 'visible';
-            buttonB.style.visibility = 'visible';
-            buttonC.style.visibility = 'visible';
-            buttonD.style.visibility = 'visible';
+            buttonA.style.display = 'inline';
+            buttonB.style.display = 'inline';
+            buttonC.style.display = 'inline';
+            buttonD.style.display = 'inline';
         }
         else {
             goToLastPage();
@@ -124,13 +126,12 @@ function checkAnswer (event) {
 };
 
 function goToLastPage() {
-    finishedContainer.style.visibility = 'visible';
+    finishedContainer.style.display = 'block';
     quizContainer.style.display = 'none';
     buttonA.style.display = 'none';
     buttonB.style.display = 'none';
     buttonC.style.display = 'none';
     buttonD.style.display = 'none';
-    resultsContainer.style.display = 'none';
     score.textContent = "Your final score is " + secondsLeft;
 }
 
@@ -151,17 +152,20 @@ function isClockZero() {
 
 function showHighScores() {
     finishedContainer.style.display = 'none';
-    highScoresTable.style.visibility = 'visible';
-    resultsHeader.style.display = 'block';
+    highScoresTable.style.display = 'inline';
+    resultsHeader.style.display = 'inline';
+    clearHighScoresButton.style.display = 'inline';
+    clearHighScoresButton.textContent = "Clear High Scores";
+    goBackButton.style.display = 'inline';
+    goBackButton.textContent = "Go Back";
     for (var i = 0; i < window.localStorage.length; i++){
-        console.log('test!!!!');
         var row = highScoresTable.insertRow(i);
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
         console.log(window.localStorage.key(i));
 
-        cell1.innerHTML = window.localStorage.key(i);
-        cell2.innerHTML = window.localStorage.getItem(localStorage.key(i));
+        cell1.innerHTML = 'Player: ' + window.localStorage.key(i) + '         ';
+        cell2.innerHTML = 'Score: ' + window.localStorage.getItem(localStorage.key(i));
     } 
 }
 
@@ -173,6 +177,22 @@ function submitScore(event) {
     showHighScores();
 }
 
+function clearLocalStorage(){
+    window.localStorage.clear();
+    while(highScoresTable.hasChildNodes())
+    {
+        highScoresTable.removeChild(highScoresTable.firstChild);
+    }
+}
+
+function goBack(){
+    highScoresTable.style.display = 'none';
+    resultsHeader.style.display = 'none';
+    finishedContainer.style.display = 'none';
+    clearHighScoresButton.style.display = 'none';
+    goBackButton.style.display = 'none';
+    beginFunction();
+}
 
 var questionCount = 0;
 
@@ -191,20 +211,24 @@ var finishedContainer = document.querySelector('#finished');
 var quizContainer = document.querySelector('#quiz-container')
 var highScoresTable = document.querySelector('#high-scores');
 var resultsHeader = document.querySelector('#results-header');
+var clearHighScoresButton = document.querySelector('#clear-hs');
+var goBackButton = document.querySelector('#go-back');
 
 // Default on first question.
 quizDiv.innerHTML = "Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your score/time by ten seconds!";
 startButton.textContent = "Begin";
 
-buttonA.style.visibility = 'hidden';
-buttonB.style.visibility = 'hidden';
-buttonC.style.visibility = 'hidden';
-buttonD.style.visibility = 'hidden';
-highScoresTable.style.visibility = 'hidden';
+buttonA.style.display = 'none';
+buttonB.style.display = 'none';
+buttonC.style.display = 'none';
+buttonD.style.display = 'none';
+highScoresTable.style.display = 'none';
 resultsHeader.style.display = 'none';
+clearHighScoresButton.style.display = 'none';
+goBackButton.style.display = 'none';
 
 // Kristen you commented this to work on the form
-finishedContainer.style.visibility = 'hidden';
+finishedContainer.style.display = 'none';
 
 
 // This made an event listener that calls 2 functions on this click.
@@ -220,4 +244,5 @@ buttonB.addEventListener("click", checkAnswer);
 buttonC.addEventListener("click", checkAnswer);
 buttonD.addEventListener("click", checkAnswer);
 
-
+clearHighScoresButton.addEventListener("click", clearLocalStorage);
+goBackButton.addEventListener("click", goBack);

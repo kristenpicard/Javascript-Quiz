@@ -32,3 +32,15 @@ body div button {
     color: blueviolet;
 }
 
+h2 {
+    color: blueviolet;
+    text-align: center;
+    font-size: 50px;
+}
+
+#high-scores {
+    padding-bottom: 20%;
+    color: blueviolet;
+    font-size: 30px;
+}
+

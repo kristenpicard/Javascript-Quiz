@@ -149,9 +149,14 @@ function isClockZero() {
     }
 }
 
-// Thinking I need this in order to display the seconds left into score on the all done page
-function getScore() {
+function showHighScores() {
+    
+}
 
+function submitScore() {
+    var initials = form.nodeValue;
+    window.localStorage.setItem(initials, secondsLeft);
+    showHighScores();
 }
 
 
@@ -191,7 +196,7 @@ startButton.addEventListener("click", () => {
     startClock();
 });
 
-
+submitButton.addEventListener("click", submitScore)
 buttonA.addEventListener("click", checkAnswer);
 buttonB.addEventListener("click", checkAnswer);
 buttonC.addEventListener("click", checkAnswer);

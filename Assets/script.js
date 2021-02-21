@@ -125,12 +125,12 @@ function checkAnswer (event) {
 
 function goToLastPage() {
     finishedContainer.style.visibility = 'visible';
-    quizContainer.style.visibility = 'hidden';
-    buttonA.style.visibility = 'hidden';
-    buttonB.style.visibility = 'hidden';
-    buttonC.style.visibility = 'hidden';
-    buttonD.style.visibility = 'hidden';
-    resultsContainer.style.visibility = 'hidden';
+    quizContainer.style.display = 'none';
+    buttonA.style.display = 'none';
+    buttonB.style.display = 'none';
+    buttonC.style.display = 'none';
+    buttonD.style.display = 'none';
+    resultsContainer.style.display = 'none';
     score.textContent = "Your final score is " + secondsLeft;
 }
 
@@ -150,8 +150,9 @@ function isClockZero() {
 }
 
 function showHighScores() {
-    finishedContainer.style.visibility = 'hidden';
+    finishedContainer.style.display = 'none';
     highScoresTable.style.visibility = 'visible';
+    resultsHeader.style.display = 'block';
     for (var i = 0; i < window.localStorage.length; i++){
         console.log('test!!!!');
         var row = highScoresTable.insertRow(i);
@@ -189,6 +190,7 @@ var resultsContainer = document.querySelector('#results');
 var finishedContainer = document.querySelector('#finished');
 var quizContainer = document.querySelector('#quiz-container')
 var highScoresTable = document.querySelector('#high-scores');
+var resultsHeader = document.querySelector('#results-header');
 
 // Default on first question.
 quizDiv.innerHTML = "Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your score/time by ten seconds!";
@@ -199,6 +201,7 @@ buttonB.style.visibility = 'hidden';
 buttonC.style.visibility = 'hidden';
 buttonD.style.visibility = 'hidden';
 highScoresTable.style.visibility = 'hidden';
+resultsHeader.style.display = 'none';
 
 // Kristen you commented this to work on the form
 finishedContainer.style.visibility = 'hidden';

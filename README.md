@@ -17,3 +17,15 @@ Here is the beginning page of the quiz:
 <br>
 ![1](Assets/1.png)
 
+## Installation
+Clone the repository at https://github.com/kristenpicard/Javascript-Quiz and load it on
+code editor of your choice. Vscode is the prefered editor.
+
+## Credits
+Kristen Picard https://github.com/kristenpicard
+
+
+## License
+MIT License
+![test](https://img.shields.io/apm/l/test)
+
